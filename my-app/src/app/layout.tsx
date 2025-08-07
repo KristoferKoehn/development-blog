@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,9 +25,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="p-4 flex justify-between items-center">
           <h1 className="text-xl font-bold">My Blog</h1>
           <nav className="space-x-4">
-            <a href="/" className="hover:underline">Home</a>
-            <a href="/about" className="hover:underline">About</a>
-            <a href="/blog" className="hover:underline">Blog</a>
+            <Link href="/" className="hover:underline">Home</Link>
+            <Link href="/about" className="hover:underline">About</Link>
+            <Link href="/blog" className="hover:underline">Blog</Link>
           </nav>
         </header>
         <main className="p-6 max-w-3xl mx-auto">{children}</main>
