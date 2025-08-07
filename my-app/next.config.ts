@@ -5,7 +5,7 @@ const isGithubPages = process.env.NODE_ENV === 'production';
 
 const nextConfig = {
   output: 'export',
-  basePath: isGithubPages ? '/<your-repo-name>' : '',
+  basePath: isGithubPages ? '/development-blog' : '',
   images: {
     unoptimized: true,
   },
