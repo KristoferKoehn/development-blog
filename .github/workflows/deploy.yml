@@ -56,10 +56,6 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         working-directory: my-app
 
-      - name: Export static site
-        run: ${{ steps.detect-package-manager.outputs.runner }} next export
-        working-directory: my-app
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
