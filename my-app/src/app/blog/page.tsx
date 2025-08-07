@@ -2,48 +2,49 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type PostMeta = {
   title: string;
   image: string;
   excerpt?: string;
-};
-
-type Post = PostMeta & {
+  date?: string;
   slug: string;
 };
 
 const postsDir = path.join(process.cwd(), 'content/blog');
 
 export default function BlogPage() {
-  const posts: Post[] = fs.readdirSync(postsDir).map((fileName) => {
+  const posts: PostMeta[] = fs.readdirSync(postsDir).map((fileName) => {
     const slug = fileName.replace(/\.md$/, '');
     const filePath = path.join(postsDir, fileName);
     const { data } = matter(fs.readFileSync(filePath, 'utf-8'));
-    const postData = data as PostMeta;
-
-    // Return an object with slug and the rest of the metadata
-    return { slug, ...postData };
+    return { slug, ...(data as Omit<PostMeta, 'slug'>) };
   });
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-6">Blog Posts</h2>
-      <div className="space-y-6">
+    <main className="max-w-3xl mx-auto py-8 px-4">
+      <h2 className="text-3xl font-bold mb-8">Blog Posts</h2>
+      <div className="space-y-12">
         {posts.map((post) => (
-          <div key={post.slug} className="border-b border-white/20 pb-4">
-            <img
-              src={post.image}
-              alt={post.title}
-              className="w-full h-48 object-cover mb-2 rounded"
-            />
-            <Link href={`/blog/${post.slug}`}>
-              <h3 className="text-xl font-semibold hover:underline">{post.title}</h3>
+          <article key={post.slug} className="border-b border-gray-300 pb-6">
+            {post.image && (
+              <Image
+                src={post.image}
+                alt={post.title}
+                width={800}
+                height={400}
+                className="rounded mb-4 object-cover"
+                priority={true}
+              />
+            )}
+            <Link href={`/blog/${post.slug}`} className="text-2xl font-semibold text-blue-600 hover:underline">
+              {post.title}
             </Link>
-            <p>{post.excerpt}</p>
-          </div>
+            {post.excerpt && <p className="mt-2 text-gray-700">{post.excerpt}</p>}
+          </article>
         ))}
       </div>
-    </div>
+    </main>
   );
 }
