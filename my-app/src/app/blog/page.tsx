@@ -29,7 +29,7 @@ export default function BlogPage() {
       <h2 className="text-3xl font-bold mb-8">Blog Posts</h2>
       <div className="space-y-12">
         {posts.map((post) => (
-          <a href={`/blog/${post.slug}`} key={post.slug}>
+          <Link href={`/blog/${post.slug}`} key={post.slug}>
           <Card>
             <CardHeader><CardTitle>{post.title}</CardTitle></CardHeader>
             <CardContent>
@@ -52,7 +52,7 @@ export default function BlogPage() {
           </CardContent>
 
           </Card>
-          </a>
+          </Link>
 
         ))}
       </div>
