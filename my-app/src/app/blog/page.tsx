@@ -3,6 +3,8 @@ import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
 import Image from 'next/image';
+import ContentBlock from '@/components/content-block';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 type PostMeta = {
   title: string;
@@ -27,7 +29,11 @@ export default function BlogPage() {
       <h2 className="text-3xl font-bold mb-8">Blog Posts</h2>
       <div className="space-y-12">
         {posts.map((post) => (
-          <article key={post.slug} className="border-b border-gray-300 pb-6">
+          <a href={`/blog/${post.slug}`} key={post.slug}>
+          <Card>
+            <CardHeader><CardTitle>{post.title}</CardTitle></CardHeader>
+            <CardContent>
+          <article>
             {post.image && (
               <Image
                 src={post.image}
@@ -38,11 +44,16 @@ export default function BlogPage() {
                 priority={true}
               />
             )}
-            <Link href={`/blog/${post.slug}`} className="text-2xl font-semibold text-blue-600 hover:underline">
+            {/* <Link href={`/blog/${post.slug}`} className="text-2xl font-semibold text-blue-600 hover:underline">
               {post.title}
-            </Link>
+            </Link> */}
             {post.excerpt && <p className="mt-2 text-gray-700">{post.excerpt}</p>}
           </article>
+          </CardContent>
+
+          </Card>
+          </a>
+
         ))}
       </div>
     </main>

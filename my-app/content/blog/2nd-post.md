@@ -1,6 +1,6 @@
 ---
 title: "My First Blog Post"
-image: "/blog-images/test-post.jpg"
+image: "/blog-1-image.png"
 excerpt: "This is a quick preview of my first blog post. It talks about cool stuff in web development."
 ---
 
